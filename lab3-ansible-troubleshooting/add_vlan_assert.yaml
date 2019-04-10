@@ -1,0 +1,24 @@
+
+---
+
+- name: verify nxos version
+  hosts: nxos
+  connection: network_cli
+  gather_facts: yes
+
+  tasks:
+
+    - name: Add VLAN 2000
+      nxos_vlan:
+        vlan_id: 2000
+        admin_state: up
+        name: NewVLAN
+
+    - nxos_facts:
+    - name: Display VLAN List
+      debug: var=vlan_list
+
+    - name: verify VLAN 2000 Exists
+      assert:
+        that:
+          - "'2000' in vlan_list"
