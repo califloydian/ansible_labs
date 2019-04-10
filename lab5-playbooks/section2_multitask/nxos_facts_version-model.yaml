@@ -1,0 +1,14 @@
+---
+
+- name: Gather Nexus Facts
+  hosts: switches
+  connection: httpapi
+  gather_facts: yes
+
+  tasks:
+    - nxos_facts:
+    - name: Gather Switch Version
+      debug: var=ansible_net_version
+
+    - name: Gather Switch Model
+      debug: var=ansible_net_model
